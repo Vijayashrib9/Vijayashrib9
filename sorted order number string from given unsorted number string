@@ -1,0 +1,13 @@
+--To print sorted order number string from given unsorted number string--
+
+with ds as
+(
+    select '4,2,82,23,55,45,17,5,38,94,6,100' as dset from dual
+)
+select listagg(lst,', ') within group(order by to_number(lst)) as rslt 
+from 
+    (
+        select regexp_substr(dset,'[^,]+',1,level) as lst 
+          from ds
+        connect by level<= regexp_count(dset,',')+1
+    );
