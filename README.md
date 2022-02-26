@@ -1,4 +1,4 @@
-- 👋 Hi, I’m @Vijayashrib9
+- 👋 Hi, I’m Vijayashri
 - 👀 I’m interested in SQL, Oracle, Python, R, Matlab, Tableau, AWS, Azure, Snowflake and any other Data science related
 - 🌱 I’m currently learning Python, Snowflake, R
 - 💞️ I’m looking to collaborate on Data science
