@@ -1,0 +1,22 @@
+--Masking text from table
+
+select case 
+          when length(ename) > 4 then
+                RPAD('X',length(ename) - 4,'X')||substr(ename, length(ename) - 3, length(ename) )
+          when length(ename) <= 4 then RPAD('X',length(ename),'X')
+       end as EncodeName
+      from emp;
+	  
+----Single value masking	  
+
+with ds as
+(
+    select '4444232354546464' as dat from DUAL
+)
+select case 
+       when length(dat) > 4 then
+            RPAD('X',length(dat) - 4,'X')||substr(dat, length(dat) - 3, length(dat) )
+       when length(dat) <= 4 then 
+            RPAD('X',length(dat),'X')
+        end as EncodeName
+  from ds;
