@@ -1,0 +1,23 @@
+--- PL/SQL block to increase 10% if job name starts with 'C', 5% if job name starts with 'S', otherwise 2%
+
+BEGIN
+    FOR c_rec in (select distinct job from emp)
+    LOOP
+        IF substr(c_rec.job,1,1)='C' THEN
+            UPDATE emp
+               SET sal = sal+(sal*10)/100
+            WHERE job =c_rec.job;
+            DBMS_OUTPUT.PUT_LINE('Iteration 1, Job name: '||c_rec.job);
+        ELSIF substr(c_rec.job,1,1) ='S' THEN
+            UPDATE emp
+               SET sal = sal+(sal*5)/100
+            WHERE job =c_rec.job;
+            DBMS_OUTPUT.PUT_LINE('Iteration 2, Job name: '||c_rec.job);
+        ELSE
+             UPDATE emp
+               SET sal = sal+(sal*2)/100
+            WHERE job =c_rec.job; 
+            DBMS_OUTPUT.PUT_LINE('Else iteration, Job name: '||c_rec.job); 
+        END IF;
+    END LOOP;
+END;
