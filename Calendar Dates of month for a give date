@@ -1,0 +1,8 @@
+-- print Full calendar dates of month for a give date
+select trunc(sysdate,'month')+level-1 
+  from dual
+connect by level<=last_day(trunc(sysdate))-trunc(sysdate,'month')+1
+
+---get last date/day of the month for a give date without using last_day function
+select trunc(sysdate,'mm'), add_months(trunc(sysdate,'month'),1)-1 
+  from dual
