@@ -1,0 +1,39 @@
+select * from emp;
+select JSON_OBJECT('ENAME' VALUE ENAME) from emp;
+
+select JSON_OBJECTAGG('ENAME' VALUE ENAME) from emp;
+
+select JSON_ARRAY(ENAME) from emp;
+
+select JSON_ARRAYAGG(ENAME) from emp;
+
+select * from dept
+
+select d.dname,
+       JSON_ARRAYAGG(e.ename)
+  from emp e, dept d
+where e.deptno = d.deptno
+GROUP BY d.dname
+
+select JSON_OBJECTAGG(d.dname VALUE
+       JSON_ARRAYAGG(e.ename))
+  from emp e, dept d
+where e.deptno = d.deptno
+GROUP BY d.dname
+
+---------
+select 
+       JSON_OBJECTAGG(d.dname VALUE
+       JSON_ARRAYAGG(JSON_OBJECT('ENAME' VALUE e.ename))) AS USE_CASE2
+  from emp e, dept d
+where e.deptno = d.deptno
+GROUP BY d.dname
+
+--- Working with DocNotation--
+
+insert into dot_notation values(6, '{"Accounting": [{"ename": "Clark"}, {"ename": "King"}, {"ename": "Miller"}],
+                                     "Research":[{"ename": "Ford"}, {"ename": "Adams"}, {"Smith": "Jones"}, {"ename": "Scott"}],
+                                     "Sales": [{"ename":"Ward"}, {"ename": "Blake"}, {"ename": "Allen"}, {"ename": "James"}, {"ename": "Turner"}, {"ename": "Martin"}]}'
+                                );
+
+select dn.ds.Sales.ename from dot_notation dn where id=6;                                              
