@@ -1,0 +1,13 @@
+--Solution1--
+select * from emp_t where rowid in (select rowid from (select e.*, 
+row_number() over(partition by e.empno, e.ename, e.sal, e.job, e.deptno order by empno) as rnk from emp_t e
+) empl
+where rnk>1) 
+
+---Solution 2--
+
+select a.*, rowid from emp_t a where rowid >(
+select min(rowid) from emp_t e 
+        where e.empno=a.empno and e.ename=a.ename
+        and e.job=a.job and e.sal=a.sal
+        and e.deptno=a.deptno) 
