@@ -1,0 +1,15 @@
+--Convert given number string to number in words
+select to_date('528', 'J'), to_char(to_date('528', 'J'),'JSP') 
+  from dual
+
+--check/delete duplicate records from a table
+select * from emp_t 
+ where rowid in (
+				 select rowid 
+				   from (
+						  select e.*, 
+						         row_number() over(partition by e.empno, e.ename, e.job, e.sal, e.deptno order by e.empno) rnk 
+							from emp_t e
+						) 
+				 where rnk>1
+				)
